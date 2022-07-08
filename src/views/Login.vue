@@ -9,7 +9,8 @@
             <div class="form-group">
                 <label for="senha">Senha</label>
                 <input type="password" class="form-control" v-model="usuario.senha">
-            </div>         
+            </div>   
+            <p class="alert alert-danger" v-if="mensagemErro">{{mensagemErro}}</p>      
             <button type="submit" class="btn btn-primary brn-block">  
                 Logar
             </button>  
@@ -26,13 +27,22 @@
 export default {
     data () {
         return {
-            usuario: {}
+            usuario: {},
+            mensagemErro: ''
         }
     },
     methods: {
         efetuarLogin(){
             this.$store.dispatch('efetuarLogin', this.usuario)
-                .then(() => this.$router.push({name: 'gerentes' }))
+                .then(() => {
+                    this.$router.push({name: 'gerentes'})
+                    this.mensagemErro = ''
+                    })
+                .catch( erro => {
+                    if (erro.request.status === 401) {
+                        this.mensagemErro = 'Login ou senha invalido(s)'
+                    }
+                })
         }
     }
 }
