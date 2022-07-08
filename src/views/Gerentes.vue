@@ -9,7 +9,6 @@
 
 <script>
 import Gerente from "@/components/Gerente.vue";
-
 export default {
   components: {
     Gerente
@@ -28,5 +27,4 @@ export default {
 </script>
 
 <style>
-
 </style>
